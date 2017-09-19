@@ -1,0 +1,18 @@
+version: "2"
+services:
+  notebook:
+    build: .
+    ports:
+      - 8888:8888
+    volumes:
+      - ~/Documents:/home/jovyan/work
+      - logs:/home/jovyan/logs
+  tensorboard:
+    build: .
+    ports:
+      - 6006:6006
+    volumes_from:
+      - notebook
+    command: tensorboard --logdir /home/jovyan/logs
+volumes:
+  logs:
