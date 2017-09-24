@@ -1,0 +1,19 @@
+version: "2"
+services:
+  notebook:
+    build: .
+    ports:
+      - 8888:8888
+    volumes:
+      - ~/Documents:/notebooks/work
+      - logs:/notebooks/logs
+    command: ["/run_jupyter.sh", "--allow-root", "--NotebookApp.token=''"]
+  tensorboard:
+    build: .
+    ports:
+      - 6006:6006
+    volumes_from:
+      - notebook
+    command: tensorboard --logdir /notebooks/logs
+volumes:
+  logs:
