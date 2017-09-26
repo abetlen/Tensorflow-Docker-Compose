@@ -3,7 +3,7 @@ services:
     build: .
     command:
     - /run_jupyter.sh
-    - --allow-root
+    - --ip=*
     - --NotebookApp.token=''
     devices:
     - /dev/nvidia0
@@ -12,13 +12,14 @@ services:
     - /dev/nvidia-uvm-tools
     ports:
     - 8888:8888
+    user: ubuntu
     volumes:
-    - ~/Documents:/notebooks/work
-    - logs:/notebooks/logs
+    - ~/Documents:/home/ubuntu/work
+    - logs:/home/ubuntu/logs
     - nvidia_driver_375.82:/usr/local/nvidia:ro
   tensorboard:
     build: .
-    command: tensorboard --logdir /notebooks/logs
+    command: tensorboard --logdir /home/ubuntu/logs
     devices:
     - /dev/nvidia0
     - /dev/nvidiactl
@@ -26,6 +27,7 @@ services:
     - /dev/nvidia-uvm-tools
     ports:
     - 6006:6006
+    user: ubuntu
     volumes:
     - nvidia_driver_375.82:/usr/local/nvidia:ro
     volumes_from:

@@ -1,6 +1,8 @@
+jupyter_contrib_nbextensions
 numpy
 scipy
 sklearn
 scikit-image
 scikit-optimize
 pymc3
+pycuda
